@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-DOMAIN='katello.example.com'
+DOMAIN='example.com'
 SUBNET="172.16.5"
 
 ketallo_provision_commands = [

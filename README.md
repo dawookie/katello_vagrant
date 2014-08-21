@@ -4,7 +4,9 @@ katello_vagrant
  * https://fedorahosted.org/katello/wiki
  * Lets build a katello server under Vagrant.
 
- - Run 'vagrant up'.
+ # Adjust your firewall to forward localhost:443 to localhost:9443
+ ## (OSX) sudo ipfw add 100 fwd 127.0.0.1,9443 tcp from any to me 443
+ # Run 'vagrant up'.
 
 Bug Reports
 -----------
