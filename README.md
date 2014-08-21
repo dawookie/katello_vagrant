@@ -1,7 +1,8 @@
 katello_vagrant
 ===============
 
-Lets build a katello server under Vagrant.
+ * https://fedorahosted.org/katello/wiki
+ * Lets build a katello server under Vagrant.
 
  - Run 'vagrant up'.
 
@@ -11,4 +12,4 @@ Bug Reports
 
 Contributing
 ------------
- - Fork the repository and end me a pull request.
+ - Fork the repository and email me a pull request.
