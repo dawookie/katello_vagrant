@@ -1,0 +1,2 @@
+katello_vagrant
+===============
