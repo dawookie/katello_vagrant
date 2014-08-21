@@ -8,10 +8,10 @@ ketallo_provision_commands = [
   'rpm -q wget || yum install -y wget',
   'yum upgrade -y',
   'rpm -q katello-repos || yum install -y http://fedorapeople.org/groups/katello/releases/yum/1.4/RHEL/6Server/x86_64/katello-repos-1.4.4-1.el6.noarch.rpm',
-'rpm -q epel-release-6-8.noarch || yum install -y http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm',
-'wget -O /etc/yum.repos.d/epel-rhsm.repo http://repos.fedorapeople.org/repos/candlepin/subscription-manager/epel-subscription-manager.repo',
-'rpm -q katello-foreman-all || yum install -y katello-foreman-all',
-'service foreman status | grep -q running || katello-configure --user-pass ChangeM3 -b'
+  'rpm -q epel-release-6-8.noarch || yum install -y http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm',
+  'wget -O /etc/yum.repos.d/epel-rhsm.repo http://repos.fedorapeople.org/repos/candlepin/subscription-manager/epel-subscription-manager.repo',
+  'rpm -q katello-foreman-all || yum install -y katello-foreman-all',
+  'service foreman status | grep -q running || katello-configure --user-pass ChangeM3 -b'
 ]
 
 Vagrant.configure("2") do |config|
