@@ -4,6 +4,16 @@
 DOMAIN='katello.example.com'
 SUBNET="172.16.5"
 
+ketallo_provision_commands = [
+  'rpm -q wget || yum install -y wget',
+  'yum upgrade -y',
+  'rpm -q katello-repos || yum install -y http://fedorapeople.org/groups/katello/releases/yum/1.4/RHEL/6Server/x86_64/katello-repos-1.4.4-1.el6.noarch.rpm',
+'rpm -q epel-release-6-8.noarch || yum install -y http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm',
+'wget -O /etc/yum.repos.d/epel-rhsm.repo http://repos.fedorapeople.org/repos/candlepin/subscription-manager/epel-subscription-manager.repo',
+'rpm -q katello-foreman-all || yum install -y katello-foreman-all',
+'service foreman status | grep -q running || katello-configure --user-pass ChangeM3 -b'
+]
+
 Vagrant.configure("2") do |config|
 
   config.hostmanager.enabled = true
@@ -31,30 +41,10 @@ Vagrant.configure("2") do |config|
       vb.customize ["modifyvm", :id, "--memory", 3072]
       vb.customize ["modifyvm", :id, "--ioapic", "on", "--cpus", 2]
     end
-    katello.vm.provision "shell",
-      inline: "rpm -q wget || yum install -y wget"
-    katello.vm.provision "shell",
-      inline: "yum upgrade -y"
-    katello.vm.provision "shell",
-      inline: "rpm -q katello-repos || yum install -y http://fedorapeople.org/groups/katello/releases/yum/1.4/RHEL/6Server/x86_64/katello-repos-1.4.4-1.el6.noarch.rpm"
-    katello.vm.provision "shell",
-      inline: "rpm -q epel-release-6-8.noarch || yum install -y http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm"
-    katello.vm.provision "shell",
-      inline: "wget -O /etc/yum.repos.d/epel-rhsm.repo http://repos.fedorapeople.org/repos/candlepin/subscription-manager/epel-subscription-manager.repo"
-    katello.vm.provision "shell",
-      inline: "rpm -q katello-foreman-all || yum install -y katello-foreman-all"
-    katello.vm.provision "shell",
-      inline: "service foreman status | grep -q running || katello-configure --user-pass ChangeM3 -b"
-    # katello.vm.provision "shell",
-    #  inline: "gem install deep_merge"
-    # katello.vm.provision "shell",
-    #   inline: "gem install librarian-puppet"
-    # katello.vm.provision "shell",
-    #   inline: "/usr/bin/yum clean all"
-    # katello.vm.provision "shell",
-    #   inline: "/usr/bin/yum install -y git"
-    # katello.vm.provision "shell",
-    #   inline: "cd /vagrant/puppet/ && librarian-puppet install --path=/etc/puppet/modules/  --verbose"
+    ketallo_provision_commands.each do |cmd|
+      katello.vm.provision "shell",
+        inline: cmd
+    end
     katello.hostmanager.aliases = %w(puppet puppetmaster)
   end
 
